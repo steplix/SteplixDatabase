@@ -23,7 +23,7 @@ $ npm install
 ```
 
 ### How is it used?
-------------------------------
+
 ### Create new **Database** instance.
 
 ```js
@@ -225,7 +225,7 @@ model.transaction(/* callback */ () => {
 ```
 
 ## Tests
-------------------------------
+
 Para poder ver ejemplos más concretos, **¡LOS INVITO A MIRAR LOS TESTS :)!**
 
 ### Correr los tests unitarios
