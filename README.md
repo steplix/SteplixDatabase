@@ -235,6 +235,6 @@ npm test
 ```
 
 <!-- deep links -->
-[install]: #download-install
+[install]: #download--install
 [how_is_it_used]: #how-is-it-used
 [tests]: #tests
