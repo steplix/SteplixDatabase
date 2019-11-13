@@ -226,9 +226,9 @@ model.transaction(/* callback */ () => {
 
 ## Tests
 
-Para poder ver ejemplos más concretos, **¡LOS INVITO A MIRAR LOS TESTS :)!**
+In order to see more concrete examples, **I INVITE YOU TO LOOK AT THE TESTS :)**
 
-### Correr los tests unitarios
+### Run the unit tests
 ```bash
 npm install
 npm test
