@@ -1,0 +1,47 @@
+{
+  "name": "steplix-database",
+  "version": "0.0.1",
+  "description": "Steplix Database is a promise-based Node.js ORM for MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "node_modules/.bin/eslint core tests",
+    "lint-fix": "node_modules/.bin/eslint --fix core tests",
+    "test": "NODE_ENV=testing mocha --file './tests/setup.js' --reporter spec --recursive tests/**/*.test.js"
+  },
+  "homepage": "https://github.com/steplix/SteplixDatabase#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steplix/SteplixDatabase.git"
+  },
+  "author": "Steplix Developers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steplix/SteplixDatabase/issues"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "mysql",
+    "orm",
+    "promise",
+    "steplix"
+  ],
+  "dependencies": {
+    "async": "^3.1.0",
+    "bluebird": "^3.7.1",
+    "debug": "^4.1.1",
+    "lodash": "^4.17.15",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^6.2.2",
+    "supertest": "^4.0.2"
+  }
+}
