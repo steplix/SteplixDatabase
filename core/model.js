@@ -24,7 +24,7 @@ class Model {
 
         this.entity = entity;
         this.options = options;
-        this.db = options.database;
+        this.db = options.database || options.db;
 
         if (!this.db) {
             throw new Error('The Steplix database model needs the "database" option (Steplix.Database instance) to function properly.');

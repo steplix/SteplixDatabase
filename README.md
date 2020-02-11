@@ -17,12 +17,12 @@ $ npm install steplix-database
 
 ### Source code
 ```bash
-$ git clone https://github.com/comodinx/SteplixDatabase.git
+$ git clone https://github.com/steplix/SteplixDatabase.git
 $ cd SteplixDatabase
 $ npm install
 ```
 
-### How is it used?
+## How is it used?
 
 ### Create new **Database** instance.
 
