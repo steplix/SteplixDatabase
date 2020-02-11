@@ -14,17 +14,17 @@ class Database {
         this.connection = _connect(this.options);
     }
 
-    query (query) {
+    query (query, args = []) {
         return new P((resolve, reject) => {
-            this.connection.query(query, (error, result) => {
+            this.connection.query(query, args, (error, result) => {
                 if (error) return reject(error);
                 return resolve(result);
             });
         });
     }
 
-    queryOne (query, fn) {
-        return this.query(query).then(results => {
+    queryOne (query, args = [], fn) {
+        return this.query(query, args).then(results => {
             let result;
 
             if (results && results.length) {
