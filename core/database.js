@@ -49,11 +49,7 @@ class Database {
                             });
                         });
                     })
-                    .catch(error => {
-                        return this.connection.rollback(() => {
-                            throw error;
-                        });
-                    });
+                    .catch(error => this.connection.rollback(() => reject(error)));
             });
         });
     }
