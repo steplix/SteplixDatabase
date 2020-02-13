@@ -55,6 +55,24 @@ describe('Query', () => {
 
                 done();
             });
+
+            it('should return very very complex SQL', done => {
+                const result = Query.select('users', {
+                    where: {
+                        id: [1, 2, 3],
+                        OR: {
+                            created_at: {
+                                BETWEEN: ['1980-01-01 00:00:00', '2000-01-01 00:00:00']
+                            }
+                        }
+                    }
+                });
+
+                expect(result).to.be.a('string');
+                expect(result).equal('SELECT * FROM users WHERE id IN (1,2,3) AND (created_at BETWEEN \'1980-01-01 00:00:00\' AND \'2000-01-01 00:00:00\')');
+
+                done();
+            });
         });
 
         describe('#insert', () => {

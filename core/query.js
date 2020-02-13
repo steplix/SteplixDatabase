@@ -6,6 +6,8 @@ const DEFAULT_OPTIONS = {
     fields: ['*']
 };
 
+const IS_BETWEEN = ['BETWEEN', 'NOT BETWEEN'];
+
 function _prepareOptions (options) {
     return _.defaultsDeep({}, options || {}, DEFAULT_OPTIONS);
 }
@@ -174,6 +176,10 @@ class Query {
         // Handle array values condition. Example: { id: [1, 2, 3] }
         // NOTE: We use JSON.stringify for handle string values.
         else if (_.isArray(value)) {
+            // Handle between condition
+            if (IS_BETWEEN.includes(operator.toUpperCase())) {
+                return `${key} ${operator} '${value[0]}' AND '${value[1]}'`;
+            }
             return `${key} IN (${JSON.stringify(value).substring(1).slice(0, -1)})`;
         }
 
