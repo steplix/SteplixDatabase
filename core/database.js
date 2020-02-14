@@ -49,6 +49,7 @@ class Database {
                             });
                         });
                     })
+                    .then(resolve)
                     .catch(error => this.connection.rollback(() => reject(error)));
             });
         });
