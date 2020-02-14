@@ -41,11 +41,11 @@ class Database {
 
                 return P.resolve()
                     .then(() => callback())
-                    .then(() => {
+                    .then(result => {
                         return new P((resolve, reject) => {
                             this.connection.commit(error => {
                                 if (error) return reject(error);
-                                return resolve();
+                                return resolve(result);
                             });
                         });
                     })
