@@ -65,11 +65,12 @@ describe('Query', () => {
                                 BETWEEN: ['1980-01-01 00:00:00', '2000-01-01 00:00:00']
                             }
                         }
-                    }
+                    },
+                    order: [['id', 'DESC']]
                 });
 
                 expect(result).to.be.a('string');
-                expect(result).equal('SELECT * FROM users WHERE id IN (1,2,3) AND (created_at BETWEEN \'1980-01-01 00:00:00\' AND \'2000-01-01 00:00:00\')');
+                expect(result).equal('SELECT * FROM users WHERE id IN (1,2,3) AND (created_at BETWEEN \'1980-01-01 00:00:00\' AND \'2000-01-01 00:00:00\') ORDER BY id DESC');
 
                 done();
             });
