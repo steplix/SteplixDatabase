@@ -1,6 +1,6 @@
 {
   "name": "steplix-database",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Steplix Database is a promise-based Node.js ORM for MySQL.",
   "main": "index.js",
   "scripts": {

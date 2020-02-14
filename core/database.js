@@ -5,6 +5,13 @@ const P = require('bluebird');
 const mysql = require('mysql');
 
 function _connect (options) {
+    if (options.usePool) {
+        // Default connection limit to 100 
+        if (!options.connectionLimit) {
+            options.connectionLimit = 100;
+        }
+        return mysql.createPool(options);
+    }
     return mysql.createConnection(options);
 }
 
@@ -34,24 +41,32 @@ class Database {
         });
     }
 
-    transaction (callback) {
+    transaction (callback, connection) {
         return new P((resolve, reject) => {
-            this.connection.beginTransaction(error => {
-                if (error) return reject(error);
-
-                return P.resolve()
-                    .then(() => callback())
-                    .then(result => {
-                        return new P((resolve, reject) => {
-                            this.connection.commit(error => {
-                                if (error) return reject(error);
-                                return resolve(result);
+            const handle = connection => {
+                return connection.beginTransaction(error => {
+                    return P.resolve()
+                        .then(() => callback())
+                        .then(result => {
+                            return new P((resolve, reject) => {
+                                connection.commit(error => {
+                                    if (error) return reject(error);
+                                    return resolve(result);
+                                });
                             });
-                        });
-                    })
-                    .then(resolve)
-                    .catch(error => this.connection.rollback(() => reject(error)));
-            });
+                        })
+                        .then(resolve)
+                        .catch(error => connection.rollback(() => reject(error)));
+                });
+            };
+
+            if (this.options.usePool) {
+                return this.connection.getConnection((error, connection) => {
+                    if (error) return reject(error);
+                    return handle(connection);
+                });
+            }
+            return handle(this.connection);
         });
     }
 
@@ -72,10 +87,20 @@ class Database {
 
     ping () {
         return new P((resolve, reject) => {
-            this.connection.ping(error => {
-                if (error) return reject(error);
-                return resolve(true);
-            });
+            const handle = connection => {
+                return connection.ping(error => {
+                    if (error) return reject(error);
+                    return resolve(true);
+                });
+            };
+
+            if (this.options.usePool) {
+                return this.connection.getConnection((error, connection) => {
+                    if (error) return reject(error);
+                    return handle(connection);
+                });
+            }
+            return handle(this.connection);
         });
     }
 

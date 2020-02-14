@@ -36,6 +36,7 @@ const db = new Database({
   database: 'mydbname'
 });
 ```
+> If you need use pool connections, please set **usePool: true** on options. By default **connectionLimit** = **100**.
 
 #### Simple query Execution
 ```js
