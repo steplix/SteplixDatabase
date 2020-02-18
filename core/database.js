@@ -107,13 +107,6 @@ class Database {
                     return resolve(true);
                 });
             };
-
-            if (this.options.usePool) {
-                return this.connection.getConnection((error, connection) => {
-                    if (error) return reject(error);
-                    return handle(connection);
-                });
-            }
             return handle(this.connection);
         });
     }
@@ -122,7 +115,14 @@ class Database {
         return new P((resolve, reject) => {
             this.connection.end(error => {
                 if (error) return reject(error);
+                if (this.options.usePool) {
+                    this.pool.end(error => {
+                        if (error) return reject(error);
 
+                        this.pool = null;
+                        return resolve();
+                    });
+                }
                 this.connection = null;
                 return resolve();
             });
